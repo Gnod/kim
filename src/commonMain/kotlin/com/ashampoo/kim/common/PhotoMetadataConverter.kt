@@ -21,6 +21,7 @@ import com.ashampoo.kim.format.jpeg.JpegImageParser
 import com.ashampoo.kim.format.jpeg.iptc.IptcTypes
 import com.ashampoo.kim.format.tiff.GPSInfo
 import com.ashampoo.kim.format.tiff.constant.ExifTag
+import com.ashampoo.kim.format.tiff.constant.FujiFilmTag
 import com.ashampoo.kim.format.tiff.constant.TiffConstants
 import com.ashampoo.kim.format.tiff.constant.TiffTag
 import com.ashampoo.kim.format.xmp.XmpReader
@@ -79,6 +80,9 @@ public object PhotoMetadataConverter {
         val fNumber = imageMetadata.findDoubleValue(ExifTag.EXIF_TAG_FNUMBER)
         val focalLength = imageMetadata.findDoubleValue(ExifTag.EXIF_TAG_FOCAL_LENGTH)
 
+        /* Extract Fujifilm film simulation from MakerNote */
+        val filmSimulation = extractFilmSimulation(imageMetadata)
+
         val keywords = xmpMetadata?.keywords?.ifEmpty {
             extractKeywordsFromIptc(imageMetadata)
         } ?: extractKeywordsFromIptc(imageMetadata)
@@ -128,6 +132,7 @@ public object PhotoMetadataConverter {
             exposureTime = exposureTime,
             fNumber = fNumber,
             focalLength = focalLength,
+            filmSimulation = filmSimulation,
             title = title,
             description = description,
             flagged = xmpMetadata?.flagged ?: false,
@@ -270,6 +275,28 @@ public object PhotoMetadataConverter {
             state = iptcState,
             country = iptcCountry
         )
+    }
+
+    @JvmStatic
+    private fun extractFilmSimulation(metadata: ImageMetadata): String? {
+
+        /* Only check for Fujifilm cameras */
+        val cameraMake = metadata.findStringValue(TiffTag.TIFF_TAG_MAKE)
+            ?: return null
+
+        if (!cameraMake.contains("FUJIFILM", ignoreCase = true))
+            return null
+
+        /* Try to read from MakerNote directory */
+        val makerNoteDir = metadata.exif?.makerNoteDirectory
+            ?: return null
+
+        val filmModeField = makerNoteDir.findField(FujiFilmTag.FILM_MODE)
+            ?: return null
+
+        val filmModeValue = filmModeField.toShort()?.toInt() ?: return null
+
+        return FujiFilmTag.getFilmModeName(filmModeValue)
     }
 }
 
