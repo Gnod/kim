@@ -1,4 +1,5 @@
 /*
+ * Copyright 2026 Ramon Bouckaert
  * Copyright 2026 Stefan Oltmann
  * Copyright 2025 Ashampoo GmbH & Co. KG
  *
@@ -210,7 +211,7 @@ public enum class MediaFormat(
 
                 /* Check AVIF */
                 bytes.startsWithNullable(MediaFormatMagicNumbers.avif) -> AVIF
-
+                bytes.startsWithNullable(MediaFormatMagicNumbers.avis) -> AVIF
                 /* Check CR3 */
                 bytes.startsWithNullable(MediaFormatMagicNumbers.cr3) -> CR3
 

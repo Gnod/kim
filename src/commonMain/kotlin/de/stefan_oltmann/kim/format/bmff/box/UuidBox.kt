@@ -1,4 +1,5 @@
 /*
+ * Copyright 2026 Ramon Bouckaert
  * Copyright 2025 Ashampoo GmbH & Co. KG
  * Copyright 2002-2023 Drew Noakes and contributors
  *
@@ -17,6 +18,7 @@
 package de.stefan_oltmann.kim.format.bmff.box
 
 import de.stefan_oltmann.kim.common.toHex
+import de.stefan_oltmann.kim.format.bmff.BMFFConstants
 import de.stefan_oltmann.kim.format.bmff.BoxType
 import de.stefan_oltmann.kim.input.ByteArrayByteReader
 import de.stefan_oltmann.kim.input.readRemainingBytes
@@ -48,6 +50,8 @@ public class UuidBox(
 
         data = byteReader.readRemainingBytes()
     }
+
+    public val isXmp: Boolean get() = uuidAsHex == BMFFConstants.XMP_UUID
 
     override fun toString(): String =
         "Box '$type' @$offset uuid=$uuidAsHex (${actualLength} bytes)"

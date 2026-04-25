@@ -1,4 +1,5 @@
 /*
+ * Copyright 2026 Ramon Bouckaert
  * Copyright 2026 Stefan Oltmann
  * Copyright 2025 Ashampoo GmbH & Co. KG
  *
@@ -29,7 +30,7 @@ object KimTestData {
 
     private const val RESOURCE_PATH: String = "de/stefan_oltmann/kim/testdata"
 
-    const val TEST_MEDIA_COUNT: Int = 85
+    const val TEST_MEDIA_COUNT: Int = 88
     const val HIGHEST_JPEG_INDEX: Int = 50
 
     const val PNG_TEST_IMAGE_INDEX: Int = 51
@@ -67,6 +68,9 @@ object KimTestData {
     const val CR3_TEST_IMAGE_INDEX: Int = 83
     const val MP4_TEST_VIDEO_INDEX: Int = 84
     const val MOV_TEST_VIDEO_INDEX: Int = 85
+    const val ANIMATED_AVIF_TEST_IMAGE_INDEX: Int = 86
+    const val ANIMATED_AVIF_TEST_IMAGE_WITH_LEGACY_ADOBE_XMP_INDEX: Int = 87
+    const val ANIMATED_AVIF_TEST_IMAGE_WITH_ALT_LEGACY_ADOBE_XMP_INDEX: Int = 88
 
     @Suppress("MagicNumber")
     val mediaIdsWithExifThumbnail: Set<Int> = setOf(
@@ -148,6 +152,9 @@ object KimTestData {
         CR3_TEST_IMAGE_INDEX -> "cr3"
         MP4_TEST_VIDEO_INDEX -> "mp4"
         MOV_TEST_VIDEO_INDEX -> "mov"
+        ANIMATED_AVIF_TEST_IMAGE_INDEX -> "avif"
+        ANIMATED_AVIF_TEST_IMAGE_WITH_LEGACY_ADOBE_XMP_INDEX -> "avif"
+        ANIMATED_AVIF_TEST_IMAGE_WITH_ALT_LEGACY_ADOBE_XMP_INDEX -> "avif"
         else -> "jpg"
     }
 

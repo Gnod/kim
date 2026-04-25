@@ -1,4 +1,5 @@
 /*
+ * Copyright 2026 Ramon Bouckaert
  * Copyright 2025 Ashampoo GmbH & Co. KG
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,6 +66,9 @@ class MediaFormatTest {
                 index == KimTestData.CR3_TEST_IMAGE_INDEX -> MediaFormat.CR3
                 index == KimTestData.MP4_TEST_VIDEO_INDEX -> MediaFormat.MP4
                 index == KimTestData.MOV_TEST_VIDEO_INDEX -> MediaFormat.MOV
+                index == KimTestData.ANIMATED_AVIF_TEST_IMAGE_INDEX -> MediaFormat.AVIF
+                index == KimTestData.ANIMATED_AVIF_TEST_IMAGE_WITH_LEGACY_ADOBE_XMP_INDEX -> MediaFormat.AVIF
+                index == KimTestData.ANIMATED_AVIF_TEST_IMAGE_WITH_ALT_LEGACY_ADOBE_XMP_INDEX -> MediaFormat.AVIF
                 else -> null
             }
 

@@ -1,4 +1,5 @@
 /*
+ * Copyright 2026 Ramon Bouckaert
  * Copyright 2026 Stefan Oltmann
  * Copyright 2025 Ashampoo GmbH & Co. KG
  *
@@ -113,6 +114,11 @@ public object MediaFormatMagicNumbers {
     public val avif: List<Byte?> = byteListOf(
         null, null, null, null
     ).plus("ftypavif".encodeToByteArray().toList())
+
+    /** 4 bytes + "ftypavis" */
+    public val avis: List<Byte?> = byteListOf(
+        null, null, null, null
+    ).plus("ftypavis".encodeToByteArray().toList())
 
     /** 4 bytes + "ftypcrx" */
     public val cr3: List<Byte?> = byteListOf(

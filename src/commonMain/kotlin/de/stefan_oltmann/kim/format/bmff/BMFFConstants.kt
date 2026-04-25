@@ -1,4 +1,5 @@
 /*
+ * Copyright 2026 Ramon Bouckaert
  * Copyright 2025 Ashampoo GmbH & Co. KG
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,17 +23,20 @@ internal object BMFFConstants {
     val BMFF_BYTE_ORDER = ByteOrder.BIG_ENDIAN
 
     /** BoxType must be always 4 bytes */
-    const val TPYE_LENGTH = 4
+    const val TYPE_LENGTH = 4
 
     /** The size is presented as unsinged integer */
     const val SIZE_LENGTH = 4
 
     /** 4 size bytes + 4 type bytes */
-    const val BOX_HEADER_LENGTH = TPYE_LENGTH + SIZE_LENGTH
+    const val BOX_HEADER_LENGTH = TYPE_LENGTH + SIZE_LENGTH
 
     const val TIFF_HEADER_OFFSET_BYTE_COUNT = 4
 
     const val ITEM_TYPE_EXIF = 1_165_519_206
     const val ITEM_TYPE_MIME = 1_835_625_829
     const val ITEM_TYPE_JPEG = 1_785_750_887
+
+    /** Standard UUID for XMP metadata embedded in a uuid box */
+    const val XMP_UUID = "be7acfcb97a942e89c71999491e3afac"
 }

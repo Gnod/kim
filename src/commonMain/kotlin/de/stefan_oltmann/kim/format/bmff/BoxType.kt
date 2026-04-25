@@ -1,4 +1,5 @@
 /*
+ * Copyright 2026 Ramon Bouckaert
  * Copyright 2026 Stefan Oltmann
  * Copyright 2025 Ashampoo GmbH & Co. KG
  *
@@ -100,19 +101,19 @@ public data class BoxType(
         public val MOOV: BoxType = of("moov".encodeToByteArray())
 
         /**
-         * ISOBMFF Track Box, used by CR3
+         * ISOBMFF Track Box, used by CR3 and AVIS
          */
         public val TRAK: BoxType = of("trak".encodeToByteArray())
 
         /**
-         * ISOBMFF Media Box, used by CR3
-         */
-        public val MDIA: BoxType = of("mdia".encodeToByteArray())
-
-        /**
-         * ISOBMFF Track Header Box
+         * ISOBMFF Track Header Box, used by CR3 and AVIS
          */
         public val TKHD: BoxType = of("tkhd".encodeToByteArray())
+
+        /**
+         * ISOBMFF Media Box, used by CR3 amd AVIS
+         */
+        public val MDIA: BoxType = of("mdia".encodeToByteArray())
 
         /**
          * ISOBMFF Media Header Box
@@ -217,7 +218,7 @@ public data class BoxType(
         @Suppress("MagicNumber")
         public fun of(typeBytes: ByteArray): BoxType {
 
-            require(typeBytes.size == BMFFConstants.TPYE_LENGTH) {
+            require(typeBytes.size == BMFFConstants.TYPE_LENGTH) {
                 "BoxType must be always 4 bytes!"
             }
 

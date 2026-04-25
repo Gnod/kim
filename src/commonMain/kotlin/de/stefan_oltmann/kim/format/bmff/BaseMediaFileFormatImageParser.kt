@@ -1,4 +1,5 @@
 /*
+ * Copyright 2026 Ramon Bouckaert
  * Copyright 2025 Ashampoo GmbH & Co. KG
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +23,10 @@ import de.stefan_oltmann.kim.format.ImageParser
 import de.stefan_oltmann.kim.format.MediaMetadata
 import de.stefan_oltmann.kim.format.bmff.BMFFConstants.BMFF_BYTE_ORDER
 import de.stefan_oltmann.kim.format.bmff.BMFFConstants.TIFF_HEADER_OFFSET_BYTE_COUNT
+import de.stefan_oltmann.kim.format.bmff.box.BoxContainer
 import de.stefan_oltmann.kim.format.bmff.box.FileTypeBox
-import de.stefan_oltmann.kim.format.bmff.box.MetaBox
+import de.stefan_oltmann.kim.format.bmff.box.MetaBoxTopLevel
+import de.stefan_oltmann.kim.format.bmff.box.UuidBox
 import de.stefan_oltmann.kim.format.cr3.Cr3Reader
 import de.stefan_oltmann.kim.format.jxl.JxlReader
 import de.stefan_oltmann.kim.format.tiff.TiffContents
@@ -78,16 +81,18 @@ public object BaseMediaFileFormatImageParser : ImageParser {
         if (fileTypeBox.majorBrand == FileTypeBox.CR3_BRAND)
             return Cr3Reader.createMetadata(allBoxes)
 
-        val metaBox = allBoxes.filterIsInstance<MetaBox>().firstOrNull()
-            ?: throw ImageReadException("Illegal ISOBMFF: Has no 'meta' Box.")
+        val metaBox = allBoxes.filterIsInstance<MetaBoxTopLevel>().firstOrNull()
+            ?: throw ImageReadException("Illegal ISOBMFF: Has no top-level 'meta' Box.")
+
+        val uuidBoxes = BoxContainer.findAllBoxesRecursive(allBoxes).filterIsInstance<UuidBox>()
 
         val metadataOffsets = metaBox.findMetadataOffsets()
 
         /* Return empty object if no metadata is found. */
-        if (metadataOffsets.isEmpty())
+        if (metadataOffsets.isEmpty() && uuidBoxes.none { it.isXmp })
             return MediaMetadata.createEmpty(mediaFormat = null)
 
-        val minOffset = metadataOffsets.first().offset
+        val minOffset = metadataOffsets.firstOrNull()?.offset
 
         /*
          * In case of Samsung Galaxy HEIC files the mdat Box comes
@@ -98,8 +103,12 @@ public object BaseMediaFileFormatImageParser : ImageParser {
          * We currently do this by having a copy of all bytes
          * in buffer and input everything we read so far in again.
          * FIXME There must be a better solution. Find it.
+         *
+         * If minOffset is null, there is no metadata to read from metadata offsets. The only
+         * metadata we have is in UUID boxes, which we have already read into memory by this point.
+         * If this is the case, we can avoid resetting the reader position.
          */
-        val onPositionBeforeMinimumOffset = position <= minOffset
+        val onPositionBeforeMinimumOffset = minOffset == null || position <= minOffset
 
         val byteReaderToUse = if (onPositionBeforeMinimumOffset) {
 
@@ -154,6 +163,11 @@ public object BaseMediaFileFormatImageParser : ImageParser {
                     position = offset.endPosition
                 }
             }
+        }
+
+        /* XMP data can also be found in a UUID box, if we didn't find it in the metadata offsets. */
+        if (xmp == null) {
+            xmp = uuidBoxes.firstOrNull { it.isXmp }?.data?.decodeToString()
         }
 
         return MediaMetadata(
