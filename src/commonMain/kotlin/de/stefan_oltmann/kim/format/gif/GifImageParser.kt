@@ -18,8 +18,8 @@ package de.stefan_oltmann.kim.format.gif
 
 import de.stefan_oltmann.kim.common.ImageReadException
 import de.stefan_oltmann.kim.common.tryWithImageReadException
-import de.stefan_oltmann.kim.format.MediaMetadata
 import de.stefan_oltmann.kim.format.ImageParser
+import de.stefan_oltmann.kim.format.MediaMetadata
 import de.stefan_oltmann.kim.format.gif.chunk.GifChunk
 import de.stefan_oltmann.kim.format.gif.chunk.GifChunkApplicationExtension
 import de.stefan_oltmann.kim.format.gif.chunk.GifChunkCommentExtension

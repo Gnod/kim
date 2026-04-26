@@ -39,13 +39,14 @@ public class MetaBoxTopLevel(
     public val itemInfoBox: ItemInformationBox = boxes.find { it.type == BoxType.IINF } as ItemInformationBox
     public val itemLocationBox: ItemLocationBox = boxes.find { it.type == BoxType.ILOC } as ItemLocationBox
 
-    public val referencesXmp: Boolean get() {
-        for (extent in itemLocationBox.extents) {
-            val itemInfo = itemInfoBox.map.get(extent.itemId) ?: continue
-            if (itemInfo.itemType == BMFFConstants.ITEM_TYPE_MIME) return true
+    public val referencesXmp: Boolean
+        get() {
+            for (extent in itemLocationBox.extents) {
+                val itemInfo = itemInfoBox.map.get(extent.itemId) ?: continue
+                if (itemInfo.itemType == BMFFConstants.ITEM_TYPE_MIME) return true
+            }
+            return false
         }
-        return false
-    }
 
     public fun findMetadataOffsets(): List<MetadataOffset> {
 

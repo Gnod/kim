@@ -198,12 +198,14 @@ public data class BoxType(
         /**
          * Apple information box (format) - byte 0xa9 followed by "fmt"
          */
-        public val FMT: BoxType = of(byteArrayOf(0xA9.toByte(), 'f'.code.toByte(), 'm'.code.toByte(), 't'.code.toByte()))
+        public val FMT: BoxType =
+            of(byteArrayOf(0xA9.toByte(), 'f'.code.toByte(), 'm'.code.toByte(), 't'.code.toByte()))
 
         /**
          * Apple information box (information) - byte 0xa9 followed by "inf"
          */
-        public val AINF: BoxType = of(byteArrayOf(0xA9.toByte(), 'i'.code.toByte(), 'n'.code.toByte(), 'f'.code.toByte()))
+        public val AINF: BoxType =
+            of(byteArrayOf(0xA9.toByte(), 'i'.code.toByte(), 'n'.code.toByte(), 'f'.code.toByte()))
 
         /**
          * FujiFilm Movie Stream Name

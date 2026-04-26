@@ -28,8 +28,8 @@ import de.stefan_oltmann.kim.format.tiff.TiffReader
 import de.stefan_oltmann.kim.format.tiff.constant.TiffConstants
 import de.stefan_oltmann.kim.format.tiff.constant.TiffTag
 import de.stefan_oltmann.kim.input.ByteArrayByteReader
-import de.stefan_oltmann.kim.model.MediaFormat
 import de.stefan_oltmann.kim.model.ImageSize
+import de.stefan_oltmann.kim.model.MediaFormat
 
 /**
  * Parses CR3 as documented on https://github.com/lclevy/canon_cr3

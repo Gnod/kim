@@ -17,8 +17,8 @@ package de.stefan_oltmann.kim.format.xmp
 
 import de.stefan_oltmann.kim.Kim.underUnitTesting
 import de.stefan_oltmann.kim.common.GpsUtil
-import de.stefan_oltmann.kim.model.MetadataUpdate
 import de.stefan_oltmann.kim.model.ExifRating
+import de.stefan_oltmann.kim.model.MetadataUpdate
 import de.stefan_oltmann.xmp.XMPException
 import de.stefan_oltmann.xmp.XMPLocation
 import de.stefan_oltmann.xmp.XMPMeta

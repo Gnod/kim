@@ -146,6 +146,7 @@ public object BoxReader {
                 } else {
                     MetaBox(globalOffset, size, largeSize, bytes)
                 }
+
                 BoxType.HDLR -> HandlerReferenceBox(globalOffset, size, largeSize, bytes)
                 BoxType.IINF -> ItemInformationBox(globalOffset, size, largeSize, bytes)
                 BoxType.INFE -> ItemInfoEntryBox(globalOffset, size, largeSize, bytes)

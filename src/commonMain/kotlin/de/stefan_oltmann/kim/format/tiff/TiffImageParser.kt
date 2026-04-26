@@ -18,15 +18,15 @@ package de.stefan_oltmann.kim.format.tiff
 
 import de.stefan_oltmann.kim.common.ImageReadException
 import de.stefan_oltmann.kim.common.tryWithImageReadException
-import de.stefan_oltmann.kim.format.MediaMetadata
 import de.stefan_oltmann.kim.format.ImageParser
+import de.stefan_oltmann.kim.format.MediaMetadata
 import de.stefan_oltmann.kim.format.tiff.constant.ExifTag
 import de.stefan_oltmann.kim.format.tiff.constant.TiffDirectoryType
 import de.stefan_oltmann.kim.format.tiff.constant.TiffTag
 import de.stefan_oltmann.kim.input.ByteReader
 import de.stefan_oltmann.kim.input.DefaultRandomAccessByteReader
-import de.stefan_oltmann.kim.model.MediaFormat
 import de.stefan_oltmann.kim.model.ImageSize
+import de.stefan_oltmann.kim.model.MediaFormat
 
 public object TiffImageParser : ImageParser {
 

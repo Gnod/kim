@@ -17,10 +17,7 @@
  */
 package de.stefan_oltmann.kim.format.bmff.box
 
-import de.stefan_oltmann.kim.common.MetadataOffset
-import de.stefan_oltmann.kim.common.MetadataType
 import de.stefan_oltmann.kim.common.toHex
-import de.stefan_oltmann.kim.format.bmff.BMFFConstants
 import de.stefan_oltmann.kim.format.bmff.BoxReader
 import de.stefan_oltmann.kim.format.bmff.BoxType
 import de.stefan_oltmann.kim.input.ByteArrayByteReader

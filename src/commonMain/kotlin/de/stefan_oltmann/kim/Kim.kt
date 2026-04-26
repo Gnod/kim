@@ -19,8 +19,8 @@ import de.stefan_oltmann.kim.common.ImageReadException
 import de.stefan_oltmann.kim.common.ImageWriteException
 import de.stefan_oltmann.kim.common.tryWithImageReadException
 import de.stefan_oltmann.kim.common.tryWithImageWriteException
-import de.stefan_oltmann.kim.format.MediaMetadata
 import de.stefan_oltmann.kim.format.ImageParser
+import de.stefan_oltmann.kim.format.MediaMetadata
 import de.stefan_oltmann.kim.format.arw.ArwPreviewExtractor
 import de.stefan_oltmann.kim.format.cr2.Cr2PreviewExtractor
 import de.stefan_oltmann.kim.format.cr3.Cr3PreviewExtractor
@@ -73,7 +73,7 @@ public object Kim {
             val mediaFormat = MediaFormat.detect(headerBytes) ?: return@use null
 
             val imageParser = ImageParser.forFormat(mediaFormat)
-                ?: return@use MediaMetadata.createEmpty (mediaFormat)
+                ?: return@use MediaMetadata.createEmpty(mediaFormat)
 
             val newReader = PrePendingByteReader(it, headerBytes.toList())
 

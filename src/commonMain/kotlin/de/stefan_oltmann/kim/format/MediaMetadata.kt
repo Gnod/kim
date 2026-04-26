@@ -21,8 +21,8 @@ import de.stefan_oltmann.kim.format.tiff.TiffContents
 import de.stefan_oltmann.kim.format.tiff.TiffDirectory
 import de.stefan_oltmann.kim.format.tiff.TiffField
 import de.stefan_oltmann.kim.format.tiff.taginfo.TagInfo
-import de.stefan_oltmann.kim.model.MediaFormat
 import de.stefan_oltmann.kim.model.ImageSize
+import de.stefan_oltmann.kim.model.MediaFormat
 
 public class MediaMetadata internal constructor(
     public val mediaFormat: MediaFormat?,

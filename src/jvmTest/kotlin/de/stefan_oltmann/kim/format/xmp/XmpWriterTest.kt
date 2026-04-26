@@ -17,9 +17,9 @@ package de.stefan_oltmann.kim.format.xmp
 
 import de.stefan_oltmann.kim.Kim
 import de.stefan_oltmann.kim.common.writeBytes
+import de.stefan_oltmann.kim.model.ExifRating
 import de.stefan_oltmann.kim.model.GpsCoordinates
 import de.stefan_oltmann.kim.model.MetadataUpdate
-import de.stefan_oltmann.kim.model.ExifRating
 import de.stefan_oltmann.kim.model.TiffOrientation
 import de.stefan_oltmann.kim.testdata.KimTestData
 import de.stefan_oltmann.xmp.XMPMetaFactory
