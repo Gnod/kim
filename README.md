@@ -1,6 +1,6 @@
 # Kim - Kotlin Image Metadata
 
-[![Kotlin](https://img.shields.io/badge/kotlin-2.2.0-blue.svg?logo=kotlin)](httpw://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.3.20-blue.svg?logo=kotlin)](httpw://kotlinlang.org)
 ![JVM](https://img.shields.io/badge/-JVM-gray.svg?style=flat)
 ![Android](https://img.shields.io/badge/-Android-gray.svg?style=flat)
 ![iOS](https://img.shields.io/badge/-iOS-gray.svg?style=flat)
@@ -12,8 +12,6 @@
 
 Kim is a Kotlin Multiplatform library for reading and writing image metadata.
 
-It's part of [Ashampoo Photo Organizer](https://ashampoo.com/photo-organizer).
-
 ## Features
 
 * JPG: Read & Write EXIF, IPTC & XMP
@@ -21,6 +19,7 @@ It's part of [Ashampoo Photo Organizer](https://ashampoo.com/photo-organizer).
     + Also read non-standard EXIF & IPTC from `tEXt`/`zTXt` chunk
 * WebP: Read & Write EXIF & XMP
 * HEIC / AVIF: Read EXIF & XMP
+    + Support for animated AVIF files (AV1 Image Sequence)
 * JXL: Read & Write EXIF & XMP of uncompressed files
 * TIFF / RAW: Read EXIF & XMP
     + Full support for Adobe DNG, Canon CR2, Canon CR3 & Fujifilm RAF
@@ -29,17 +28,14 @@ It's part of [Ashampoo Photo Organizer](https://ashampoo.com/photo-organizer).
     + API for preview image extraction of DNG, CR2, CR3, RAF, NEF, ARW & RW2
 * GIF: Read & Write XMP
 * Handling of XMP content through
-  [XMP Core for Kotlin Multiplatform](https://github.com/Ashampoo/xmpcore)
+  [XMP Core for Kotlin Multiplatform](https://github.com/StefanOltmann/xmpcore)
 * Convenient `Kim.update()` API to perform updates to the relevant places
     + JPG: Lossless rotation by modifying only one byte (where present)
-
-The future development of features on our part is driven entirely by the needs
-of Ashampoo Photo Organizer, which, in turn, is driven by user community feedback.
 
 ## Installation
 
 ```
-implementation("com.ashampoo:kim:0.26.2")
+implementation("de.stefan-oltmann:kim:0.30.0")
 ```
 
 For the targets `wasmJs` & `js` you also need to specify this:
@@ -53,8 +49,8 @@ implementation(npm("pako", "2.1.0"))
 ### Read metadata
 
 `Kim.readMetadata()` takes `kotlin.ByteArray` on all platforms and depending on
-the platform also `kotlinx.io.files.Path`, Ktor `Source` & `ByteReadChannel`,
-`java.io.File`, `java.io.InputStream`, `NSData` and `String` paths.
+the platform also `kotlinx.io.files.Path`, `kotlinx.io.Source` (for usage with Ktor) & `ByteReadChannel`,
+`java.io.File`, `java.io.InputStream`, `NSData` (iOS) and `String` paths.
 
 ```kotlin
 val bytes: ByteArray = loadBytes()
@@ -75,7 +71,7 @@ println("Taken date: $takenDate")
 
 ### Create high level summary object
 
-This creates an instance of [PhotoMetadata](src/commonMain/kotlin/com/ashampoo/kim/model/PhotoMetadata.kt).
+This creates an instance of [MetadataSummary](src/commonMain/kotlin/de/stefan_oltmann/kim/model/MetadataSummary.kt).
 It contains the following:
 
 - Image size
@@ -95,7 +91,7 @@ It contains the following:
 ```kotlin
 val bytes: ByteArray = loadBytes()
 
-val photoMetadata = Kim.readMetadata(bytes).convertToPhotoMetadata()
+val summary = Kim.readMetadata(bytes).convertToSummary()
 ```
 
 ### Change orientation using low level API
@@ -136,7 +132,7 @@ val newBytes = Kim.update(
 )
 ```
 
-See [AbstractUpdaterTest](src/commonTest/kotlin/com/ashampoo/kim/format/AbstractUpdaterTest.kt) for more samples.
+See [AbstractUpdaterTest](src/commonTest/kotlin/de/stefan_oltmann/kim/format/AbstractUpdaterTest.kt) for more samples.
 
 ### Update thumbnail using Kim.update() API
 
@@ -156,7 +152,7 @@ See the [Java example project](examples/kim-java-sample/src/main/java/Main.java)
 
 ## Limitations
 
-* Inability to update EXIF, IPTC and XMP in JPG files simultaneously.
+* Inability to update EXIF, IPTC, and XMP in JPG files simultaneously.
 * Does not read the image size and orientation for HEIC, AVIF & JPEG XL.
 * Does not read brotli compressed metadata of JPEG XL due to missing brotli KMP libs.
 * MakerNote support is experimental and limited.
@@ -175,7 +171,7 @@ This approach extends to AVIF images, as they repurpose the same boxes.
 
 ## Contributions
 
-Contributions to Ashampoo Kim are welcome! If you encounter any issues,
+Contributions to Kim are welcome! If you encounter any issues,
 have suggestions for improvements, or would like to contribute new features,
 please feel free to submit a pull request.
 

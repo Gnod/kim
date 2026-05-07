@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ashampoo.kim.format.tiff.constant
+package de.stefan_oltmann.kim.format.tiff.constant
 
+import de.stefan_oltmann.kim.format.tiff.taginfo.TiffDirectoryType
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
