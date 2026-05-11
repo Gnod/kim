@@ -1,5 +1,4 @@
 /*
- * Copyright 2025 Ashampoo GmbH & Co. KG
  * Copyright 2026 Gnod
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
